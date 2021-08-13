@@ -1,0 +1,14 @@
+package lockedme;
+
+import java.util.List;
+
+public class LockedMeProject 
+{
+	static final String folderpath="G:\\Tushar Softies\\Git_Repo\\Project\\Phase_1_Project\\Locked_Me_Files";
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+
+	}
+
+}

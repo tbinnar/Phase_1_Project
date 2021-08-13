@@ -1,0 +1,46 @@
+package lockedme;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class LockedMeProject 
+{
+	static final String folderpath="G:\\Tushar Softies\\Git_Repo\\Project\\Phase_1_Project\\Locked_Me_Files";
+	public static void main(String[] args)
+	{
+		//Variable Declaration
+		String fileName;
+		int linesCount;
+		
+		//Scanner object creation
+		Scanner sc = new Scanner(System.in);
+		
+		//Array list object creation
+		List<String> content = new ArrayList<String>();
+		
+		//Read File Name to be created from User
+		System.out.println("Enter file name to be added:");
+		fileName=sc.nextLine();
+		
+		//Read number of lines in file from user
+		System.out.println("Enter the number of lines in file:");
+		linesCount=Integer.parseInt(sc.nextLine());
+		
+		//Read Lines from user
+		for(int i=1;i<=linesCount;i++)
+		{
+			System.out.println("Enter line "+i+":");
+			content.add(sc.nextLine());		
+		}
+		
+		//save the content into the file
+		boolean isSaved =FileManager.addFiles(folderpath, fileName, content);
+		
+		if(isSaved)
+			System.out.println("File Created & Saved successfully");
+		else
+			System.out.println("Error occured while Creating/Saving file.");
+	}
+
+}

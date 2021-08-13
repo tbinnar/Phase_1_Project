@@ -1,0 +1,31 @@
+package lockedme;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class LockedMeProject 
+{
+	static final String folderpath="G:\\Tushar Softies\\Git_Repo\\Project\\Phase_1_Project\\Locked_Me_Files";
+	public static void main(String[] args)
+	{
+		//Variable Declaration
+		String fileName;
+		
+		//Scanner object creation
+		Scanner sc = new Scanner(System.in);
+		
+		//Read File Name to be search
+		System.out.println("Enter file name to be Search:");
+		fileName=sc.nextLine();
+		
+		//Search the File from Folder
+		boolean isExists =FileManager.searchFile(folderpath, fileName);
+		
+		if(isExists)
+			System.out.println("File "+ fileName +" Found successfully");
+		else
+			System.out.println("File Not Found");
+	}
+
+}
