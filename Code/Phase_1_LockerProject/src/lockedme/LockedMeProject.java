@@ -10,65 +10,104 @@ public class LockedMeProject
 	public static void main(String[] args)
 	{
 		//Variables
-		int IsContinue = 1;
-		int IsWrongChoice;
-		int ch = 0;
+		int IsContinueMainMenu = 1, IsContinueSubMenu = 1;
+		int MainMenu_ch = 0,SubMenu_ch=0;
 		
-		do // Do while to display Menu again & again 
+		do // Do while to display Main Menu again & again 
 		{			
-			do //Do while loop to display Menu again if choice is not valid
+			
+			MainMenu_ch = ReadUserInput("MainMenu");			
+			switch(MainMenu_ch)
 			{
-				try
-				{	
-					//Scanner object creation
-					Scanner sc = new Scanner(System.in);
-					
-					//Display Menu
-					displayMenu();
-					System.out.println("Enter Your Choice:");
-					ch=Integer.parseInt(sc.nextLine());
-					IsWrongChoice = 1;
-				}
-				catch(Exception ex)
-				{
-					System.out.println("Invalid Choice. Please Enter choice again");
-					IsWrongChoice = 0;
-				}
-			}while(IsWrongChoice ==0);
-				
-				
-				switch(ch)
-				{
-					case 1 : getAllFiles();
-								break;
-					case 2 : addFiles();
-								break;
-					case 3 : deleteFile();
-								break;
-					case 4 : searchFile();
-								break;
-					case 5 : System.exit(0);
-								break;
-					default : System.out.println("Invalid Option");				
-				}
+				case 1 : getAllFiles();
+							break;
+				case 2 : IsContinueSubMenu = 1;
+						do { // Do while to display Sub Menu again & again 
+							SubMenu_ch = ReadUserInput("SubMenu");
+								switch(SubMenu_ch)
+								{
+									case 1 : addFiles();
+												break;
+									case 2 : deleteFile();
+												break;
+									case 3 : searchFile();
+												break;
+									case 4 : IsContinueSubMenu = -1	;
+												break;
+									default : System.out.println("Invalid Option");				
+								}
+							}while(IsContinueSubMenu > 0);
+							break;
+				case 3 : System.exit(0);
+							break;
+				default : System.out.println("Invalid Option");				
+			}
 
-		}while(IsContinue>0);
+		}while(IsContinueMainMenu>0);
 	}
+		
 	/**
 	 * Method to print display Menu
 	 * @return
 	 */
-	public static void displayMenu()
+	public static void MainMenuDisplay()
 	{
 		System.out.println("**********************************************************************");
 		System.out.println("\t\tLocked Me.Com");
+		System.out.println("\tDeveloper :- Tushar Binnar");
 		System.out.println("**********************************************************************");
 		System.out.println("1. Display List Of Files");
-		System.out.println("2. Add New File");
-		System.out.println("3. Delete a File");
-		System.out.println("4. Search a file");
-		System.out.println("5. Exit");
+		System.out.println("2. File Opeartions List");
+		System.out.println("3. Exit");
 				
+	}
+	
+	/**
+	 * Method Sub Menu Display
+	 */
+	public static void SubMenuDisplay()
+	{
+		System.out.println("**********************************************************************");
+		System.out.println("\t\tFile Operation Menu");
+		System.out.println("**********************************************************************");
+		System.out.println("1. Add New File");
+		System.out.println("2. Delete a File");
+		System.out.println("3. Search a file");
+		System.out.println("4. Return to Main Menu");				
+	}
+	
+	/**
+	 * Method to Read User Input
+	 * @param MenuType
+	 * @return
+	 */
+	public static int ReadUserInput(String MenuType)
+	{
+		int IsWrongChoice;
+		int ch = 0;
+		do //Do while loop to display Menu again if choice is not valid
+		{
+			try
+			{	
+				//Scanner object creation
+				Scanner sc = new Scanner(System.in);		
+				//Display Menu
+				if(MenuType == "SubMenu")
+					SubMenuDisplay();
+				else
+					MainMenuDisplay();
+				System.out.println("Enter Your Choice:");
+				ch =Integer.parseInt(sc.nextLine());
+				IsWrongChoice = 1;
+			}
+			catch(Exception ex)
+			{
+				System.out.println("Invalid Choice. Please Enter choice again");
+				IsWrongChoice = 0;
+			}
+		}while(IsWrongChoice ==0);
+		
+		return ch;
 	}
 	
 	/**
@@ -76,11 +115,17 @@ public class LockedMeProject
 	 */
 	public static void getAllFiles()
 	{
+		int count = 1;
 		//To Get List of files in FOlder
 		List<String> fileNames = FileManager.getAllFileNames(folderpath);
 		
+		System.out.println("\n\t List Of Files");
 		for(String f:fileNames)
-			System.out.println(f);
+		{
+			System.out.println(count+" " +f);
+			count++;
+		}
+		
 	}
 	
 	/**
